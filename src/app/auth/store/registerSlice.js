@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { showMessage } from "app/store/fuse/messageSlice";
 import jwtService from "app/services/jwtService";
-import { createUserSettingsFirebase, setUserData } from "./userSlice";
+import { setUserData } from "./userSlice";
 
 export const submitRegister =
   ({ displayName, password, email }) =>
