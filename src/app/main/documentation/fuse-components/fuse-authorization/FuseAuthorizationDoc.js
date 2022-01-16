@@ -1,11 +1,11 @@
-import FuseHighlight from '@fuse/core/FuseHighlight';
-import Paper from '@mui/material/Paper';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
-import Typography from '@mui/material/Typography';
+import FuseHighlight from "@fuse/core/FuseHighlight";
+import Paper from "@mui/material/Paper";
+import Table from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody";
+import TableCell from "@mui/material/TableCell";
+import TableHead from "@mui/material/TableHead";
+import TableRow from "@mui/material/TableRow";
+import Typography from "@mui/material/Typography";
 
 /* eslint import/no-webpack-loader-syntax: off */
 /* eslint import/extensions: off */
@@ -35,7 +35,7 @@ function FuseAuthorizationDoc() {
       </Typography>
 
       <FuseHighlight component="pre" className="language-jsx">
-        {require('!raw-loader!app/App.js')}
+        {require("!raw-loader!app/App.js")}
       </FuseHighlight>
 
       <Typography className="text-20 mt-20 mb-10 font-700" variant="h5">
@@ -54,14 +54,6 @@ function FuseAuthorizationDoc() {
       <Typography className="mt-32 mb-8" variant="subtitle2">
         Example Usage:
       </Typography>
-
-      <Typography className="inline-block mb-8 italic" component="code">
-        src/app/main/auth/admin-role-example/AdminRoleExampleConfig.js
-      </Typography>
-
-      <FuseHighlight component="pre" className="language-jsx">
-        {require('!raw-loader!app/main/auth/admin-role-example/AdminRoleExampleConfig.js')}
-      </FuseHighlight>
 
       <Typography className="my-16" component="p">
         You can also give different auth values for individual routes with writing auth value inside
@@ -205,7 +197,7 @@ function FuseAuthorizationDoc() {
       <Typography className="mb-16" component="p">
         If you don't want to set auth on every page config;
         <br />
-        You can give default auth role value in the{' '}
+        You can give default auth role value in the{" "}
         <code>src/app/fuse-configs/routesConfig.js</code>
         file,
         <br />
@@ -266,7 +258,7 @@ function FuseAuthorizationDoc() {
       </Typography>
 
       <Typography className="mb-16" component="p">
-        After configuring to make whole app protected as above, we need to set{' '}
+        After configuring to make whole app protected as above, we need to set{" "}
         <code>auth:null</code> at the route: <code>/</code> to make it accessible for everyone.
         <br />
         If you redirect the main route (/), also make sure to set the redirected route config
@@ -356,12 +348,12 @@ function FuseAuthorizationDoc() {
         Uncaught Error: Maximum update depth exceeded: Infinite loops
       </Typography>
       <Typography className="mb-16" component="p">
-        If you are getting this error, make sure authenticated user has rights to access main route{' '}
+        If you are getting this error, make sure authenticated user has rights to access main route{" "}
         <b>"/"</b>
         or it's redirected route path.
       </Typography>
       <Typography className="mb-16" component="p">
-        After successful login, every authenticated user should be able to access to main route path{' '}
+        After successful login, every authenticated user should be able to access to main route path{" "}
         <b>"/"</b> or redirected route path.
       </Typography>
     </>
