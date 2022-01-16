@@ -1,76 +1,10 @@
 /* eslint import/no-extraneous-dependencies: off */
 import { createSlice } from "@reduxjs/toolkit";
-import firebase from "firebase/compat/app";
-import "firebase/compat/auth";
 import history from "@history";
 import _ from "@lodash";
 import { setInitialSettings, setDefaultSettings } from "app/store/fuse/settingsSlice";
 import { showMessage } from "app/store/fuse/messageSlice";
 import jwtService from "app/services/jwtService";
-
-export const setUserDataAuth0 = (tokenData) => async (dispatch) => {
-  const user = {
-    role: ["admin"],
-    from: "auth0",
-    data: {
-      displayName: tokenData.username || tokenData.name,
-      photoURL: tokenData.picture,
-      email: tokenData.email,
-      settings:
-        tokenData.user_metadata && tokenData.user_metadata.settings
-          ? tokenData.user_metadata.settings
-          : {},
-      shortcuts:
-        tokenData.user_metadata && tokenData.user_metadata.shortcuts
-          ? tokenData.user_metadata.shortcuts
-          : [],
-    },
-  };
-
-  return dispatch(setUserData(user));
-};
-
-export const setUserDataFirebase = (user, authUser) => async (dispatch) => {
-  if (
-    user &&
-    user.data &&
-    user.data.settings &&
-    user.data.settings.theme &&
-    user.data.settings.layout &&
-    user.data.settings.layout.style
-  ) {
-    // Set user data but do not update
-    return dispatch(setUserData(user));
-  }
-
-  // Create missing user settings
-  return dispatch(createUserSettingsFirebase(authUser));
-};
-
-export const createUserSettingsFirebase = (authUser) => async (dispatch, getState) => {
-  const guestUser = getState().auth.user;
-  const fuseDefaultSettings = getState().fuse.settings.defaults;
-  const { currentUser } = firebase.auth();
-
-  /**
-   * Merge with current Settings
-   */
-  const user = _.merge({}, guestUser, {
-    uid: authUser.uid,
-    from: "firebase",
-    role: ["admin"],
-    data: {
-      displayName: authUser.displayName,
-      email: authUser.email,
-      settings: { ...fuseDefaultSettings },
-    },
-  });
-  currentUser.updateProfile(user.data);
-
-  dispatch(updateUserData(user));
-
-  return dispatch(setUserData(user));
-};
 
 export const setUserData = (user) => async (dispatch, getState) => {
   /*

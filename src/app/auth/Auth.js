@@ -4,8 +4,7 @@ import { Component } from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "@reduxjs/toolkit";
 import { hideMessage, showMessage } from "app/store/fuse/messageSlice";
-
-import { setUserDataFirebase, setUserDataAuth0, setUserData, logoutUser } from "./store/userSlice";
+import { setUserData, logoutUser } from "./store/userSlice";
 
 class Auth extends Component {
   state = {
@@ -13,11 +12,8 @@ class Auth extends Component {
   };
 
   componentDidMount() {
-    return Promise.all([
-      // Comment the lines which you do not use
-
-      this.jwtCheck(),
-    ]).then(() => {
+    // TODO: change promise all
+    return Promise.all([this.jwtCheck()]).then(() => {
       this.setState({ waitAuthCheck: false });
     });
   }
@@ -75,8 +71,6 @@ function mapDispatchToProps(dispatch) {
     {
       logout: logoutUser,
       setUserData,
-      setUserDataAuth0,
-      setUserDataFirebase,
       showMessage,
       hideMessage,
     },
