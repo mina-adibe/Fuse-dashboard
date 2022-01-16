@@ -1,29 +1,27 @@
-import Card from '@mui/material/Card';
-import { styled, darken } from '@mui/material/styles';
-import CardContent from '@mui/material/CardContent';
-import Tab from '@mui/material/Tab';
-import Tabs from '@mui/material/Tabs';
-import Typography from '@mui/material/Typography';
-import { motion } from 'framer-motion';
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
-import Auth0LoginTab from './tabs/Auth0LoginTab';
-import FirebaseLoginTab from './tabs/FirebaseLoginTab';
-import JWTLoginTab from './tabs/JWTLoginTab';
+import Card from "@mui/material/Card";
+import { styled, darken } from "@mui/material/styles";
+import CardContent from "@mui/material/CardContent";
+import Tab from "@mui/material/Tab";
+import Tabs from "@mui/material/Tabs";
+import Typography from "@mui/material/Typography";
+import { motion } from "framer-motion";
+import { useState } from "react";
+import { Link } from "react-router-dom";
+import JWTLoginTab from "./tabs/JWTLoginTab";
 
-const Root = styled('div')(({ theme }) => ({
+const Root = styled("div")(({ theme }) => ({
   background: `linear-gradient(to right, ${theme.palette.primary.dark} 0%, ${darken(
     theme.palette.primary.dark,
-    0.5
+    0.5,
   )} 100%)`,
   color: theme.palette.primary.contrastText,
 
-  '& .Login-leftSection': {},
+  "& .Login-leftSection": {},
 
-  '& .Login-rightSection': {
+  "& .Login-rightSection": {
     background: `linear-gradient(to right, ${theme.palette.primary.dark} 0%, ${darken(
       theme.palette.primary.dark,
-      0.5
+      0.5,
     )} 100%)`,
     color: theme.palette.primary.contrastText,
   },
@@ -101,8 +99,6 @@ function Login() {
             </Tabs>
 
             {selectedTab === 0 && <JWTLoginTab />}
-            {selectedTab === 1 && <FirebaseLoginTab />}
-            {selectedTab === 2 && <Auth0LoginTab />}
           </CardContent>
 
           <div className="flex flex-col items-center justify-center pb-32">

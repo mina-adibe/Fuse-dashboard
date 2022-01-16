@@ -1,29 +1,28 @@
-import Card from '@mui/material/Card';
-import { styled, darken } from '@mui/material/styles';
-import CardContent from '@mui/material/CardContent';
-import Tab from '@mui/material/Tab';
-import Tabs from '@mui/material/Tabs';
-import Typography from '@mui/material/Typography';
-import { motion } from 'framer-motion';
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
-import Auth0RegisterTab from './tabs/Auth0RegisterTab';
-import FirebaseRegisterTab from './tabs/FirebaseRegisterTab';
-import JWTRegisterTab from './tabs/JWTRegisterTab';
+import Card from "@mui/material/Card";
+import { styled, darken } from "@mui/material/styles";
+import CardContent from "@mui/material/CardContent";
+import Tab from "@mui/material/Tab";
+import Tabs from "@mui/material/Tabs";
+import Typography from "@mui/material/Typography";
+import { motion } from "framer-motion";
+import { useState } from "react";
+import { Link } from "react-router-dom";
 
-const Root = styled('div')(({ theme }) => ({
+import JWTRegisterTab from "./tabs/JWTRegisterTab";
+
+const Root = styled("div")(({ theme }) => ({
   background: `linear-gradient(to right, ${theme.palette.primary.dark} 0%, ${darken(
     theme.palette.primary.dark,
-    0.5
+    0.5,
   )} 100%)`,
   color: theme.palette.primary.contrastText,
 
-  '& .Register-leftSection': {},
+  "& .Register-leftSection": {},
 
-  '& .Register-rightSection': {
+  "& .Register-rightSection": {
     background: `linear-gradient(to right, ${theme.palette.primary.dark} 0%, ${darken(
       theme.palette.primary.dark,
-      0.5
+      0.5,
     )} 100%)`,
     color: theme.palette.primary.contrastText,
   },
@@ -101,8 +100,6 @@ function Register() {
             </Tabs>
 
             {selectedTab === 0 && <JWTRegisterTab />}
-            {selectedTab === 1 && <FirebaseRegisterTab />}
-            {selectedTab === 2 && <Auth0RegisterTab />}
           </CardContent>
 
           <div className="flex flex-col items-center justify-center pb-32">

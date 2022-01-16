@@ -1,19 +1,17 @@
 /* eslint import/no-extraneous-dependencies: off */
-import { createSlice } from '@reduxjs/toolkit';
-import firebase from 'firebase/compat/app';
-import 'firebase/compat/auth';
-import history from '@history';
-import _ from '@lodash';
-import { setInitialSettings, setDefaultSettings } from 'app/store/fuse/settingsSlice';
-import { showMessage } from 'app/store/fuse/messageSlice';
-import auth0Service from 'app/services/auth0Service';
-import firebaseService from 'app/services/firebaseService';
-import jwtService from 'app/services/jwtService';
+import { createSlice } from "@reduxjs/toolkit";
+import firebase from "firebase/compat/app";
+import "firebase/compat/auth";
+import history from "@history";
+import _ from "@lodash";
+import { setInitialSettings, setDefaultSettings } from "app/store/fuse/settingsSlice";
+import { showMessage } from "app/store/fuse/messageSlice";
+import jwtService from "app/services/jwtService";
 
 export const setUserDataAuth0 = (tokenData) => async (dispatch) => {
   const user = {
-    role: ['admin'],
-    from: 'auth0',
+    role: ["admin"],
+    from: "auth0",
     data: {
       displayName: tokenData.username || tokenData.name,
       photoURL: tokenData.picture,
@@ -59,8 +57,8 @@ export const createUserSettingsFirebase = (authUser) => async (dispatch, getStat
    */
   const user = _.merge({}, guestUser, {
     uid: authUser.uid,
-    from: 'firebase',
-    role: ['admin'],
+    from: "firebase",
+    role: ["admin"],
     data: {
       displayName: authUser.displayName,
       email: authUser.email,
@@ -124,22 +122,10 @@ export const logoutUser = () => async (dispatch, getState) => {
   }
 
   history.push({
-    pathname: '/',
+    pathname: "/",
   });
 
-  switch (user.from) {
-    case 'firebase': {
-      firebaseService.signOut();
-      break;
-    }
-    case 'auth0': {
-      auth0Service.logout();
-      break;
-    }
-    default: {
-      jwtService.logout();
-    }
-  }
+  jwtService.logout();
 
   dispatch(setInitialSettings());
 
@@ -152,36 +138,15 @@ export const updateUserData = (user) => async (dispatch, getState) => {
     return;
   }
   switch (user.from) {
-    case 'firebase': {
-      firebaseService
-        .updateUserData(user)
-        .then(() => {
-          dispatch(showMessage({ message: 'User data saved to firebase' }));
-        })
-        .catch((error) => {
-          dispatch(showMessage({ message: error.message }));
-        });
-      break;
-    }
-    case 'auth0': {
-      auth0Service
-        .updateUserData({
-          settings: user.data.settings,
-          shortcuts: user.data.shortcuts,
-        })
-        .then(() => {
-          dispatch(showMessage({ message: 'User data saved to auth0' }));
-        })
-        .catch((error) => {
-          dispatch(showMessage({ message: error.message }));
-        });
+    //TODO : delete auth0
+    case "auth0": {
       break;
     }
     default: {
       jwtService
         .updateUserData(user)
         .then(() => {
-          dispatch(showMessage({ message: 'User data saved with api' }));
+          dispatch(showMessage({ message: "User data saved with api" }));
         })
         .catch((error) => {
           dispatch(showMessage({ message: error.message }));
@@ -194,15 +159,15 @@ export const updateUserData = (user) => async (dispatch, getState) => {
 const initialState = {
   role: [], // guest
   data: {
-    displayName: 'John Doe',
-    photoURL: 'assets/images/avatars/Velazquez.jpg',
-    email: 'johndoe@withinpixels.com',
-    shortcuts: ['calendar', 'mail', 'contacts', 'todo'],
+    displayName: "John Doe",
+    photoURL: "assets/images/avatars/Velazquez.jpg",
+    email: "johndoe@withinpixels.com",
+    shortcuts: ["calendar", "mail", "contacts", "todo"],
   },
 };
 
 const userSlice = createSlice({
-  name: 'auth/user',
+  name: "auth/user",
   initialState,
   reducers: {
     setUser: (state, action) => action.payload,
